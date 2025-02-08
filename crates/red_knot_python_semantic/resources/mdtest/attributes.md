@@ -86,10 +86,8 @@ c_instance = C()
 
 reveal_type(c_instance.declared_and_bound)  # revealed: str | None
 
-# TODO: we currently plan to emit a diagnostic here. Note that both mypy
-# and pyright show no error in this case! So we may reconsider this in
-# the future, if it turns out to produce too many false positives.
-reveal_type(C.declared_and_bound)  # revealed: str | None
+# error: [unresolved-attribute] "Type `Literal[C]` has no attribute `declared_and_bound`"
+reveal_type(C.declared_and_bound)  # revealed: Unknown
 
 # TODO: same as above. We plan to emit a diagnostic here, even if both mypy
 # and pyright allow this.
@@ -112,9 +110,8 @@ c_instance = C()
 
 reveal_type(c_instance.only_declared)  # revealed: str
 
-# TODO: mypy and pyright do not show an error here, but we plan to emit a diagnostic.
-# The type could be changed to 'Unknown' if we decide to emit an error?
-reveal_type(C.only_declared)  # revealed: str
+# error: [unresolved-attribute] "Type `Literal[C]` has no attribute `only_declared`"
+reveal_type(C.only_declared)  # revealed: Unknown
 
 # TODO: mypy and pyright do not show an error here, but we plan to emit one.
 C.only_declared = "overwritten on class"
